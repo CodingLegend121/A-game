@@ -1,7 +1,7 @@
 var ball;
 let screenX;
 let screenY;
-let res = 50;
+let res = 25;
 var blocks = [];
 
 function setup() {
@@ -18,6 +18,12 @@ function setup() {
   }
   for (let i = 2; i < 10; i++) {
     blocks.push(new Block(9, i));
+  }
+  for (let i = 1; i < 4; i++) {
+    blocks.push(new Block(i, 9));
+  }
+  for (let i = 6; i < 10; i++) {
+    blocks.push(new Block(i, 9));
   }
   for (let i = 1; i < 9; i++) {
     for (let j = 2; j < 10; j++) {
