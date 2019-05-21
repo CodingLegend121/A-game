@@ -9,55 +9,54 @@ function setup() {
   screenX = width / 2;
   screenY = height / 2;
   ball = new Ball();
-
-  for (let i = 0; i < 10; i++) {
-    blocks.push(new Block(i, 1));
-  }
-  for (let i = 2; i < 10; i++) {
-    blocks.push(new Block(0, i));
-  }
-  for (let i = 2; i < 10; i++) {
-    blocks.push(new Block(9, i));
-  }
-  for (let i = 1; i < 4; i++) {
-    blocks.push(new Block(i, 9));
-  }
-  for (let i = 6; i < 10; i++) {
-    blocks.push(new Block(i, 9));
-  }
-  for (let i = 1; i < 9; i++) {
-    for (let j = 2; j < 10; j++) {
-      t = new Block(i, j);
-      t.colors = [120, 100, 0];
-      t.collision = false;
-      blocks.push(t);
-    }
-  }
+  
 }
 
 function draw() {
+  //BACKGROUND
   background(75, 150, 50);
+  
+  //VIEWING TYPE
+  // translate(width/2, height/2);
   translate(screenX, screenY);
+
+  fill(255);
+  rect(0, 0, 5, 5);
+  
+  //GRID
   stroke(180, 50);
-  strokeWeight(3);
+  strokeWeight(2);
   for (var i = -150; i <= 149; i++) {
     line(-6550, i * res + res / 2, 6550, i * res + res / 2);
   }
   for (var i = -262; i <= 261; i++) {
     line(i * res + res / 2, -3750, i * res + res / 2, 3750);
   }
-  document.getElementById("p1").innerHTML = Math.round(ball.x / res);
-  document.getElementById("p2").innerHTML = Math.round(ball.y / res);
+
+  mX = Math.round((mouseX - width / 2 + ball.x) / res);
+  mY = Math.round((mouseY - height / 2 + ball.y) / res);
+  //X AND Y COORD TEXT
+  document.getElementById("p1").innerHTML = mX
+  document.getElementById("p2").innerHTML = mY
+
+  //BOUNDARY
   addBoundary(7000, 0, 1900, 6900);
   addBoundary(-7000, 0, 1900, 6900);
   addBoundary(0, 4000, 16000, 1100);
   addBoundary(0, -4000, 16000, 1100);
+
+  
+  //SHOWING FLOORS
   for (let i = 0; i < blocks.length; i++) {
     if (blocks[i].collision == false) {
       blocks[i].show();
     }
   }
+
+  //SHOWING PLAYER
   ball.show();
+
+  //SHOWING WALLS
   ball.move(screenX, screenY);
   for (let i = 0; i < blocks.length; i++) {
     if (blocks[i].collision) {
@@ -73,6 +72,12 @@ function windowResized() {
 function addBoundary(x, y, w, h) {
   rectMode(CENTER);
   noStroke();
-  fill(255, 100);
+  fill(25, 75, 25, 100);
   rect(x, y, w, h);
+}
+
+function mousePressed() {
+ 
+  blocks.push(new Block(mX, mY)); 
+
 }
